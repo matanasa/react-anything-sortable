@@ -37,6 +37,7 @@ const Sortable = React.createClass({
     containment: PropTypes.bool,
     dynamic: PropTypes.bool,
     direction: PropTypes.string,
+    isRTL: PropTypes.bool,
     children: PropTypes.arrayOf(PropTypes.node)
   },
 
@@ -289,20 +290,38 @@ const Sortable = React.createClass({
       const relativeLeft = offsetX - item.left;
       const relativeTop = offsetY - item.top;
 
-      if (relativeLeft < item.fullWidth && relativeTop < item.fullHeight) {
-        if (relativeLeft < item.fullWidth / 2 && direction === 'left') {
-          newIndex = index;
-        } else if (relativeLeft > item.fullWidth / 2 && direction === 'right') {
-          newIndex = Math.min(index + 1, _dimensionArr.length - 1);
-        } else if (relativeTop < item.fullHeight / 2 && direction === 'up') {
-          newIndex = index;
-        } else if (relativeTop > item.fullHeight / 2 && direction === 'down') {
-          newIndex = Math.min(index + 1, _dimensionArr.length - 1);
-        } else {
-          return true;
-        }
+      if (this.props.isRTL) {
+        if (relativeLeft < item.fullWidth && relativeTop < item.fullHeight) {
+          if (relativeLeft < item.fullWidth / 2 && direction === 'left') {
+            newIndex = Math.min(index + 1, _dimensionArr.length - 1);
+          } else if (relativeLeft > item.fullWidth / 2 && direction === 'right') {
+            newIndex = index;
+          } else if (relativeTop < item.fullHeight / 2 && direction === 'up') {
+            newIndex = Math.min(index + 1, _dimensionArr.length - 1);
+          } else if (relativeTop > item.fullHeight / 2 && direction === 'down') {
+            newIndex = index;
+          } else {
+            return true;
+          }
 
-        return false;
+          return false;
+        }
+      } else {
+        if (relativeLeft < item.fullWidth && relativeTop < item.fullHeight) {
+          if (relativeLeft < item.fullWidth / 2 && direction === 'left') {
+            newIndex = index;
+          } else if (relativeLeft > item.fullWidth / 2 && direction === 'right') {
+            newIndex = Math.min(index + 1, _dimensionArr.length - 1);
+          } else if (relativeTop < item.fullHeight / 2 && direction === 'up') {
+            newIndex = index;
+          } else if (relativeTop > item.fullHeight / 2 && direction === 'down') {
+            newIndex = Math.min(index + 1, _dimensionArr.length - 1);
+          } else {
+            return true;
+          }
+
+          return false;
+        }
       }
       return true;
     });

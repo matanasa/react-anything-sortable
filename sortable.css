@@ -19,7 +19,7 @@
 }
 
 .ui-sortable .ui-sortable-item {
-  float: left;
+  float: right;
   cursor: move;
 }
 
