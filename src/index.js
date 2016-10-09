@@ -294,6 +294,7 @@ const Sortable = React.createClass({
         if (relativeLeft < item.fullWidth && relativeTop < item.fullHeight) {
           if (relativeLeft < item.fullWidth / 2 && direction === 'left') {
             newIndex = Math.min(index + 1, _dimensionArr.length - 1);
+            console.log(newIndex, _dimensionArr.length - 1);
           } else if (relativeLeft > item.fullWidth / 2 && direction === 'right') {
             newIndex = index;
           } else if (relativeTop < item.fullHeight / 2 && direction === 'up') {
